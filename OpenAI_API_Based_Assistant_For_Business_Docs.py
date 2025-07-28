@@ -17,7 +17,9 @@ docs = loader.load()
 
 # Make sure your OpenAI API key is set
 #import os
-#os.environ['OPENAI_API_KEY'] = "[REMOVED_SECRET]"
+# Make sure to set this outside the code, e.g., from terminal or .env
+#api_key = os.environ["OPENAI_API_KEY"]
+
 
 # Rest of your code is correct
 splitter = RecursiveCharacterTextSplitter(chunk_size=598, chunk_overlap=198)
