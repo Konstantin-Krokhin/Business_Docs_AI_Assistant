@@ -2,12 +2,10 @@
 from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 #from langchain_huggingface import HuggingFaceEmbeddings # If ran out of Open AI API tokens / Privacy required, use the local HuggingFace
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.embeddings import HuggingFaceEmbeddings
+#from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.chat_models import ChatOpenAI
-from lanchain_community.llms import HuggingFacePipeline
-from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from langchain.chains import RetrievalQA
 from dotenv import load_dotenv
 import os
@@ -39,9 +37,9 @@ text_splitter = RecursiveCharacterTextSplitter(
 chunks = text_splitter.split_documents(docs)
 
 if os.path.exists(VECTOR_STORE_DIR):
-	vectorstore = FAISS.load_local(VECTOR_STORE_DIR, HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2"))
+	vectorstore = FAISS.load_local(VECTOR_STORE_DIR, OpenAIEmbeddings())
 else:
-	vectorstore = FAISS.from_documents(chunks, HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2"))
+	vectorstore = FAISS.from_documents(chunks, OpenAIEmbeddings(model = "text-embedding-3-small"))
 	vectorstore.save_local(VECTOR_STORE_DIR)
 
 
