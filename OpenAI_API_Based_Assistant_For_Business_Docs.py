@@ -1,11 +1,9 @@
-from langchain_community.document_loaders import DirectoryLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings
+# Updated imports (replace all deprecated ones with these)
+from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_huggingface import HuggingFaceEmbeddings  # Updated import
 from langchain_community.vectorstores import FAISS
-from langchain_community.document_loaders import TextLoader  # For plain .txt files
-from langchain_community.document_loaders import PyPDFLoader  # For PDFs (no layout model)
-from langchain_community.document_loaders import DirectoryLoader
-from langchain.embeddings import HuggingFaceEmbeddings
+import os
 
 # use a common compact model
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -20,11 +18,16 @@ docs = loader.load()
 # Make sure to set this outside the code, e.g., from terminal or .env
 #api_key = os.environ["OPENAI_API_KEY"]
 
-
-# Rest of your code is correct
-splitter = RecursiveCharacterTextSplitter(chunk_size=598, chunk_overlap=198)
+splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
 chunks = splitter.split_documents(docs)
 
-embeddings = OpenAIEmbeddings()
-db = FAISS.from_documents(chunks, embeddings)
-db.save_local('/Kaggle/working/vector_index') # Explicit Kaggle path
+#embeddings = OpenAIEmbeddings()
+
+vectorstore = FAISS.from_documents(chunks, embeddings)
+vectorstore.save_local("local_vector_index")
+
+retriever = vectorstore.as_retriever()
+
+docs = retriever.invoke("What is travel reimbursement policy?")
+for doc in docs:
+    print(doc.page_content)
