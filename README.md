@@ -7,7 +7,7 @@ This project uses local embeddings (all-MiniLM-L6-v2) to simulate a full RAG pip
 ## Features
 - Loads and processes PDFs
 - Splits documents into chunks for context-aware Q&A
-- Uses OpenAI GPT model for answering questions
+- Uses OpenAI GPT / Hugging Face models (2 adaptations depending on the budget) for answering questions
 - Terminal-based chatbot interface
 
 ## Installation
