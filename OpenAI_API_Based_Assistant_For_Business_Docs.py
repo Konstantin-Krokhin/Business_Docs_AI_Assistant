@@ -51,7 +51,7 @@ def create_vectorstore(chunks):
 # === Stage 2: Local Hugging Face LLM Setup ===
 def get_local_llm():
 	local_pipeline = pipeline(
-		task = "text2text-generation",
+		task = "text-generation",
 		model = "google/flan-t5-small", # Use small for CPU, change to Falcon if on GPU
 		tokenizer = "google/flan-t5-small",
 		max_new_tokens = 300,
