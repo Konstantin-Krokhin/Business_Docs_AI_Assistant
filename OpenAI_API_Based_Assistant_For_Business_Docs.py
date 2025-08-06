@@ -3,7 +3,7 @@ from langchain_community.document_loaders import DirectoryLoader, TextLoader, Py
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 #from langchain_huggingface import HuggingFaceEmbeddings # If ran out of Open AI API tokens / Privacy required, use the local HuggingFace
 #from langchain_openai import OpenAIEmbeddings
-from langchain_community.llms import HuggingFacePipeline
+from langchain_huggingface import HuggingFacePipeline
 from langchain_huggingface import HuggingFaceEmbeddings
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from langchain_community.vectorstores import FAISS
@@ -51,7 +51,7 @@ def create_vectorstore(chunks):
 # === Stage 2: Local Hugging Face LLM Setup ===
 def get_local_llm():
 	local_pipeline = pipeline(
-		task = "text-generation",
+		task = "text2text-generation",
 		model = "google/flan-t5-small", # Use small for CPU, change to Falcon if on GPU
 		tokenizer = "google/flan-t5-small",
 		max_new_tokens = 300,
