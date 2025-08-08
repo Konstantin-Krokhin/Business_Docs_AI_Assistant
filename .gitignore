@@ -15,3 +15,7 @@ __pycache__/
 
 # Environment or runtime-specific files
 .env
+
+vectorstore/
+
+docs/

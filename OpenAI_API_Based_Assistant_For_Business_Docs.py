@@ -147,5 +147,8 @@ def run_cli_app():
 		result = qa_chain.invoke({"query": query})
 		print(f"\n🤖 Answer:\n", result["result"])
 
+	for i, doc in enumerate(result["source_documents"]):
+		print(f"\n📄 Source Document {i + 1}:\n", doc.page_content[:500], "...\n")
+
 if __name__ == "__main__":
 	run_cli_app()
