@@ -10,6 +10,9 @@ This project uses local embeddings (all-MiniLM-L6-v2) to simulate a full RAG pip
 - Uses OpenAI GPT / Hugging Face models (2 adaptations depending on the budget) for answering questions
 - Terminal-based chatbot interface
 
+## Project description
+http://bit.ly/46Rj50C
+
 ## Installation
 ```bash
 pip install -r requirements.txt
